@@ -7,4 +7,5 @@ export const routes: Routes = [
   {path: 'hello-world', component: HelloWorldComponent},
   {path: 'user-profile', component: UserProfileComponent},
   {path: 'user-profile/:id', component: UserProfileComponent},
+  {path: 'hello-world/:id', component: HelloWorldComponent},
 ];

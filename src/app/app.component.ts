@@ -38,7 +38,11 @@ import {CommonModule} from '@angular/common';
       <td>{{user.name}}</td>
       <td>
         <a [routerLink]="['/user-profile', user.id]">routerLink</a>
-        <button (click)="viewUserProfileById(user.id)"> click funcion </button></td>
+        <button (click)="viewUserProfileById(user.id)"> click funcion </button>
+        <button (click)="viewUserProfileParams(user.id)"> click funcion params id </button>
+        <button (click)="viewUserProfileParamsObject(user)"> click funcion params object </button>
+      </td>
+
     </tr>
 
     </tbody>
@@ -51,11 +55,37 @@ import {CommonModule} from '@angular/common';
 export class AppComponent {
   title = 'angular-routing';
   constructor(private router: Router) { }
-  public persons:any[]=[{id:1,name:"noe"},{id:2,name:"wilber"}, {id:3,name:"tipo"},{id:4,name:"mamani"}];
+  public persons:any[]=[
+    {id:1,name:"noe"},
+    {id:2,name:"wilber"},
+    {id:3,name:"tipo"},
+    {id:4,name:"mamani"}];
   public viewUserProfile():void {
     this.router.navigate(['user-profile']);
   }
   public viewUserProfileById(id:number):void {
-    this.router.navigate(['/user-profile',id]);
+    if (id %2==0) {
+      console.log(id);
+      this.router.navigate(['user-profile',id]);
+    }else {
+      console.log("======: ",id);
+      this.router.navigate(['hello-world',id]);
+
+    }
+    //this.router.navigate(['/user-profile',id]);
+  }
+
+  public viewUserProfileParams(id: number):void {
+    console.log(id);
+    this.router.navigate(['user-profile'], {queryParams:{id:id}});
+  }
+
+  viewUserProfileParamsObject(user: any) {
+    if (user.id %2==0) {
+      this.router.navigate(['user-profile'], {queryParams:{id:user.id, name:user.name}});
+    }else {
+      this.router.navigate(['hello-world'], {queryParams:{id:user.id, name:user.name}});
+    }
+
   }
 }
